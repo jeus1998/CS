@@ -1,0 +1,34 @@
+
+참고 자료 : [쉬운코드] https://www.youtube.com/watch?v=_dzRW48NB9M&list=PLcXyemr8ZeoT-_8yBc_p_lVwRRqUaN8ET&index=15
+
+- OS 프로세스의 상태(state) 변화를 이해
+- 자바 스레드의 상태 이해
+- 상태를 알아야 하는 이유
+
+
+OS에서 프로세스 상태(state)
+
+참고사진 - OperatingSystem/IMG/OS에서의 프로세스 상태 변화.JPG
+
+new - 처음 프로세스가 시작
+
+ready - 대부분의 os에서 처음 프로세스가 시작을 하면 바로 new -> ready 로 바뀐다.  admitted(new -> ready)
+
+running - cpu 스케줄러에 의해서 ready 상태에서 -> running 으로 바뀐다. scheduler dispatch(ready -> dispatch)
+
+interrupt(running->ready) 프로세스에 할당된 time slices 다 사용하면 다시 ready 상태로 바뀐다.
+
+waiting - running 상태였던 프로세스가 I/O 작업이나 이미 다른 프로세스가 critical section 을 사용하고 있는 상황
+        - running -> waiting
+
+I/O 작업이나 다른 프로세스가 critical section을 다 사용 했다면 waiting -> ready
+
+다른 프로세스가 time slices 가 끝나면 컨텍스트 스위칭 ready -> running
+
+이런 과정을 계속 반복한다. ready -> running -> ready -> running -> waiting -> ready -> running .....
+
+프로세스가 이제 마무리 작업만 남아 있다면 ready -> running(마무리 작업) -> terminated(exit)
+
+
+
+
