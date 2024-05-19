@@ -4,3 +4,5 @@
 - StrategiesForSynchronization [동기화 전략]
 - 모니터(monitor)
 - Monitor_Java [모니터(monitor) & java(자바)]
+- 데드락(DeadLock)
+- Deadlock_Java [데드락(Deadlock) & java(자바]
