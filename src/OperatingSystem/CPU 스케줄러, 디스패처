@@ -1,0 +1,20 @@
+
+자료 : [쉬운코드] https://www.youtube.com/watch?v=LgEY4ghpTJI&list=PLcXyemr8ZeoT-_8yBc_p_lVwRRqUaN8ET&index=16
+
+- CPU scheduler & dispatcher 차이
+- 스케줄링 선점 방식
+- 다양한 스케줄링 알고리즘
+
+scheduler 역할
+프로세스/스레드가 항상 놀지 않고 일을 하도록 선택하는 작업을 한다.
+
+어떤 프로세스/스레드가 running 상태에서 (waiting or ready or terminated)로 상태가 바뀔 수 있다.
+그럼 이때 cpu는 비워져있다. 비워져있는 cpu를 다른 프로세스가 바로 이어서 실행될 수 있도록 해야 하는데
+어떤 프로세스가 진행할 것인지를 선택한 작업을 스케줄러가 한다.
+
+ready queue - ready 상태인 프로세스를 모아놓은 큐
+
+CPU scheduler - CPU에서 실행될 프로세스를 선택하는 역할
+
+dispatcher - CPU scheduler가 선택한 프로세스를 실행 되도록 만드는 작업
+- context switching(컨텍스트 스위칭) 이전 프로세스 -> 다음 프로세스
