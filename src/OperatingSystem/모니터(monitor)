@@ -1,0 +1,208 @@
+
+모니터(monitor) & 자바(java)에서 사용 형태
+
+참고 자료 : [쉬운코드] https://www.youtube.com/watch?v=Dms1oBmRAlo&list=PLcXyemr8ZeoT-_8yBc_p_lVwRRqUaN8ET&index=11
+
+모니터(monitor)?
+- mutual exclusion을 보장
+- 조건에 따라 스레드가 대기(waiting) 상태로 전환 기능
+
+모니터는 언제 사용되나?
+- 한번에 하나의 스레드만 실행돼야 할 때
+- 여러 스레드와 협업(cooperation)이 필요할 때
+
+모니터의 구성 요소
+- mutex
+- condition variable(s)
+
+mutex? - 자세한 내용은 StrategiesForSynchronization.java 확인
+- critical section에서 mutual exclusion을 보장하는 장치
+- critical section에 진입하려면 mutex lock을 취득해야함
+- mutex lock을 취득하지 못한 스레드는 큐에 들어간 후 대기(waiting) 상태로 전환
+- mutex lock을 쥔 스레드가 lock을 반환하면 락을 기다리며 큐에 대기 상태로 있던 스레드 중 하나가 실행
+
+condition variable
+- waiting queue를 가짐 -> waiting queue : 조건이 충족되길 기다리는 스레드들이 대기 상태로 머무는 곳
+
+-----------------------------------------------------------------------------------------------------------
+condition variable에서 주요 동작(operation)
+
+wait
+- thread가 자기 자신을 condition variable의 waiting queue에 넣고 대기 상태로 전환
+
+signal
+- waiting queue에서 대기중인 스레드 중 하나를 꺠움
+
+broadcast
+- waiting queue에서 대기중인 스레드 전부를 깨움
+
+-----------------------------------------------------------------------------------------------------------
+모니터 뼈대 살펴보기
+
+acquire(m);  // 모니터의 락 취득  만약 이미 어떤 스레드가 락을 가지고 있으면 mutex가 관리하는 큐(entry queue)에 넣는다.
+
+// critical section init
+while(!p){                                  // 조건 확인
+    wait(m, cv);                            // 조건 충족 안되면 waiting -> condition variable의 waiting queue에 넣는다.
+}
+
+... 이런 저런 코드들 .. <- critical section
+
+signal(cv2); -- OR -- broadcast(cv2);       // cv2가 cv와 같을 수도 있음
+                                            // 조건이 만족되는 스레드 하나를 깨운다 -> signal n개를 깨운다. -> broadcast
+// critical section done
+release(m);                                 // 모니터의 락 반환
+
+mutual exclusion을 보장 하기 위한 mutex
+acquire(m);
+release(m);
+
+wait(m , cv) 에서 m(lock)을 parameter로 넘겨주는데 이유는 wait 상태로 들어간 스레드는 언제 깨어날지 모르기 때문에 lock을 반환한다.
+그리고 wait 상태가 끝나면 다시 m(lock)을 얻기 위해서 parameter로 넘겨준다.
+
+그래서 모니터에는 두 개의 큐(queue)가 존재한다.
+- entry queue : critical section에 진입을 기다리는 큐 - mutex에서 관리
+- waiting queue : 조건이 충족되길 기다리는 큐
+
+
+-----------------------------------------------------------------------------------------------------------
+bounded producer/consumer problem 모니터(컨슈머 프로듀서)문제
+
+p:producer c:consumer b:buffer(고정 길이)
+
+p                  c
+    ____________
+p        b         c
+
+p는 계속해서 item을 생산해서 buffer에 집어 넣는다.
+c는 buffer에서 consume해서 처리를 한다.
+
+
+p관점에서의 문제점
+
+p                  c
+    ************
+    ____________
+p        b         c
+
+이미 buffer 최대 용량에 item을 모두 채웠을 때 producer는 계속해서 buffer에 남은 공간이 있는지 확인
+
+c관점에서의 문제점
+
+p                  c
+    ____________
+p        b         c
+
+comsumer가 buffer에서 consume을 하려고하는데 buffer에는 item이 1개도 없다. consumer는 계속 해서 buffer에 item이 있는지 확인
+
+이런 문제를 monitor(모니터)를 활용해서 해결이 가능하다.
+
+----------------------------------------------------------------------------------------------------------------
+
+bounded producer/consumer problem 모니터(컨슈머 프로듀서)문제 모니터를 활용해서 해결
+
+global volatile Buffer q;
+global Lock lock;
+global CV fullCV;
+global CV emptyCV;
+
+public method producer(){
+    while(true){
+        task myTask = ...;
+
+        lock.acquire();
+                                                          // critical section init
+        while(q.isFull()){
+           wait(lock, fullCV);
+        }
+        q.enqueue(myTask);                                // buffer에 item 넣기
+
+        signal(emptyCV); -- OR -- broadcast(emptyCV);
+                                                          // critical section end
+        lock.release();
+   }
+}
+
+public method consumer(){
+    while(true){
+
+        lock.acquire();
+                                                         // critical section init
+        while(q.isEmpty()){
+           wait(lock, emptyCV);
+        }
+
+        myTask = q.dequeue();                             // buffer에서 item 꺼내기
+
+        signal(fullCV); -- OR -- broadcast(fullCV);
+
+        lock.release();
+                                                          // critical section end
+        doStuff(myTask);
+   }
+}
+
+*간단한 설명*
+
+producer, consumer, buffer 모두 멀티스레딩 환경이라고 가정
+
+여러 스레드가 공유해서 사용하는 리소스이니 mutual exclusion이 보장되어야 한다. -> 만약 그렇지 않으면 race condition이 발생한다.
+그래서 Lock lock (mutex)를 활용해서 critical section을 만들어 주었다.
+
+producer 입장에서 buffer가 이미 다 차있다면?
+buffer에 공간이 생길때까지 wait를 한다. -> condition variable의 waiting queue에 넣는다.
+
+이렇게 wait하고 있는 스레드들을 consumer에서 signal or broadcast를 통해서 깨워준다.
+
+consumer 입장에서 buffer에 item이 없다면?
+buffer에 item이 생길때까지 wait를 한다. -> condition variable의 waiting queue에 넣는다.
+
+이렇게 wait하고 있는 스레드들은 producer에서 signal or broadcase를 통해서 깨워준다.
+
+*구체적인 사례*(가상 시나리오)
+
+consumer 스레드 1개 존재 -> c1
+producer 스레드 1개 존재 -> p1
+
+c1부터 시작
+
+현재는 mutex lock을 얻을려고 시도하면 아무도 lock을 사용하지 않기 때문에 바로 lock을 얻는다.
+
+c1이 critical section에 들어왔다.
+
+이때 p1이 동작한다.
+하지만 c1이 아직 lock을 반납하지 않았기 때문에 p1 스레드는 mutex lock이 관리하는 entry queue에 들어간다. sleep 상태
+
+c1은 자신의 할일을 계속해서 하고 있다.
+현재 c1은 buffer가 비어있는지 확인하는 작업을 하고 있다. while(q.isEmpty())
+현재 q(buffer)는 비어있다. 그래서 c1을 emptyCV(condition variable)의 waiting queue에 넣는다.
+wait(lock, emptyCV); 이때 wait 상태로 바뀌기 때문에 mutex lock을 반환한다.
+
+그럼 현재 entry queue에 대기하고 있는 스레드가 있는지 확인한다 있으니까 p1스레드를 깨운다.
+p1 스레드는 이제 lock을 얻고 producer의 critical section에 들어간다
+while(q.isFull()) while문에서 버퍼가 비어있는지 확인
+버퍼에 item이 하나도 없기 때문에 while문 내부 로직은 실행되지 않는다.
+q에 myTask를 넣는다. q.enqueue(myTask);
+이제 signal(emptyCV) OR broadcast(emptyCV)를 통해서 깨운다.
+
+그럼 emptyCV(condition variable)에 있는 c1을 깨운다.
+
+이때 2가지 방식이 있다.
+
+1. c1스레드를 깨우고 p1스레드가 계속해서 동작하는 방식(signal & continue)
+2. c1스레드를 깨우고 p1스레드는 wait상태 -> another waiting queue에 넣고 깨운 c1 스레드를 진행 (signal & wait)
+
+signal & continue 방식으로 계속 진행하겠다.
+
+c1 스레드는 wait 상태가 끝났지만 아직 p1스레드가 lock을 반환하지 않아서 entry queue에 들어간다.
+p1스레드는 계속 진행하다가 lock.release()를 통해서 lock을 반환한다.
+
+그럼 c1 스레드는 entry queue에서 나와서
+whie(q.isEmpty()) 조건은 false니까 무시하고 myTask를 buffer에서 꺼낸다. q.dequeue();
+fullCV 에서 buffer가 비어지는 걸 기다리는 스레드가 있을 수도 있으니까
+signal(fullCV); -- or broadcast(fullCV);를 한다. -> fullCV waiting queue에는 스레드가 없어서 어떤 동작도 하지 않는다.
+그리고 lock.release()를 통해서 lock을 반납한다.
+
++ entry queue에서 먼저 나와지는 스레드는 구현에 따라 다르다 즉 우선순위의 기준은 구현에 따라 다르다.
+
+----------------------------------------------------------------------------------------------------------------
