@@ -8,3 +8,4 @@
 - Deadlock_Java [데드락(Deadlock) & java(자바]
 - 운영체제 프로세스 상태
 - ThreadState_Java [자바 스레드의 상태]
+- CPU 스케줄러,디스패처,선점,비선점,스케줄링 알고리즘
