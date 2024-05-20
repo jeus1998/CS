@@ -1,0 +1,242 @@
+
+참고 자료 : [쉬운 코드] https://www.youtube.com/watch?v=gjcbqZjlXjM&list=PLcXyemr8ZeoREWGhhZi5FZs6cvymjIBVe&index=2
+
+- relational data model의 기본 개념
+- relational database 의미
+- 기본키, 외래키, constraints
+
+
+relational data model
+
+set
+- 서로 다른 elemets를 가지는 collection
+- 하나의 set에서 elements의 순서는 중요하지 않다.
+- {1,3,11,4,7}
+
+relational in mathematics
+setA = {1,2}
+setB = {p,q,r}
+
+setA와 setB를 조합해서 pair를 만든다고 하면 수학에서는
+Cartesian product A X B = {(a,b) | a ( A and b ( B}
+
+{1,p}
+{1,q}
+{1,r}
+{2,p}
+{2,q}
+{2,r}
+{3,p}
+{3,q}
+{3,r}
+
+binary relation < A X B (부분집합)
+{1,p}
+{2,q}
+{2,r}
+
+Cartesian produce의 부분집합(binary relation)
+
+relation in mathematics
+- subset of Cartesian product
+- set of tuples
+
+relational data model
+
+student relation을 예로 들어 relational data model을 이해하기
+
+domain 정의하기
+- students_ids: 학번 집합, 7자리 integer 상수
+- human_names : 사람이름 집합, 문자열
+- university_grades : 대학교 학년 집합, {1,2,3,4}
+- major_names : 대학교에서 배우는 전공 이름 집합
+- phone_numbers : 핸드폰 번호 집합
+
+domain of student relation
+students_ids human_names university_grades major_names phone_numbers(개인 연락처) phone_numbers(비상 연락처)
+
+지금 보면 같은 도메인이 2개가 있다.(phone_numbers)
+동일한 도메인이 같은 relation에서 2번 사용되고 있다.
+근데 사용되는 목적,역할이 다르다.
+
+-> attribute 개념 등장 -> 각 도메인의 역할을 정의
+
+domain of student relation
+students_ids human_names university_grades major_names phone_numbers phone_numbers
+   id             name       grade           major       phone_num   emer_phone_num
+
+이렇게 id name grade major phone_num emer_phone_num의 tuple이 생긴다.
+
+이 튜플의 집합을 table이라고 한다.
+
+-> so student relation in relation data model representation is table
+
+          relation(table)
+______________________________________________________________|
+attribute  id     name   grade major  phone_num emer_phone_num|
+______________________________________________________________|
+tuple :  173225   배제우    4    정통    010-~~      010-~~~    |
+______________________________________________________________|
+tuple :  243225   배제욱    3    정통    010-~~      010-~~~    |
+
+
+relation data model
+domain             set of atomic values  <- 더이상 분리 x인 value (atomic)
+domain name        domain 이름
+attribute          domain이 relation에서 맡은 역할 이름
+tuple              각 attribute 값으로 이루어진 리스트, 일부 값은 NULL일 수 있다.
+relation           set of tuples
+relation name      relation name
+
+relation schema
+- relation의 구조를 나타낸다.
+- relation 이름과 attributes 리스트로 표기된다.
+- ex) STUDENT(id, name, grade, major, phone_num, emer_phone_num)
+- attributes와 권련된 constraints도 포함된다.
+
+degree of a relation (차수)
+- relation schema에서 attributes의 수
+- ex) STUDENT(id, name, grade, major, phone_num, emer_phone_num) -> degree 6
+
+relation (or relation state) - set of tuples
+
+          relation(table)
+______________________________________________________________|
+attribute  id     name   grade major  phone_num emer_phone_num|
+______________________________________________________________|
+tuple :  173225   배제우    4    정통    010-~~      010-~~~    |
+______________________________________________________________|
+tuple :  243225   배제욱    3    정통    010-~~      010-~~~    |
+
+현재 시점에서의 데이터를 relation이라고 할 수도 있다.
+현재 시점에서는 배제우, 배제욱만 존재한다.
+
+relation database
+- relational data model에 기반하여 구조화된 database
+- relational database는 여러 개의 relations로 구성된다
+
+relational database schema
+relation schemas set + integrity constraints set
+
+relation의 특징들
+
+- relation은 중복된 tuple을 가질 수 없다. (relation is set of tuples)
+______________________________________________________________|
+attribute  id     name   grade major  phone_num emer_phone_num|
+______________________________________________________________|
+tuple :  173225   배제우    4    정통    010-~~      010-~~~    |
+______________________________________________________________|
+tuple :  173225   배제우    4    정통    010-~~      010-~~~    |
+
+- relation의 tuple을 식별하기 위해 attribute의 부분 집합을 key로 설정한다. -> id(key)
+- relation에서 tuple의 순서는 중요하지 않다
+- 하나의 tuple에서 attribute의 순서 또한 중요하지 않다.
+- attribute는 atomic 해야 한다. (composite or multivalued attribute 허용 안됨)
+__________________________________________________________|
+attribute  id     name  grade major     |  address        |
+_________________________________________________________ |
+tuple :  173225   배제우   4  정통, 디자인 | 서울특별시 강남동  |
+__________________________________________________________|
+tuple :  173225   배제우   4   정통       |  ....           |
+
+지금 보면 major(정통, 디자인) or address(서울특별시 강남동) atomic 하지 않다.
+
+NULL의 의미
+- 값이 존재하지 않는다
+- 값이 존재하나 아직 그 값이 무엇인지 알지 못한다
+- 해당 사항과 관련이 없다
+- 정보가 아직 update x
+
+super key(슈퍼키)
+- relation에서 tuples를 unique하게 식별할 수 있는 attributes set
+
+ex) PLAYER(id, name, team_id, back_number, birth_date)의 super key는?
+{id, name, team_id, back_number, birth_date} <- 전체 attribute set을 가지면 super key
+{id, name} <- id 자체가 선수마다 부여되는 고유 id여서 super key
+{team_id, back_number} <- 팀마다 동일한 등번호의 선수는 있지만 팀 1개에는 등번호가 고유하게 있다. super key
+
+candidate key
+- 어느 한 attribute라도 제거하면 unique하게 tuples를 식별할 수 없는 super key
+- key or minimal super key
+
+ex)  PLAYER(id, name, team_id, back_number, birth_date)의 candidate key는?
+-> {id}, {team_id, back_number}
+
+primary key
+- relation에서 tuples를 unique하게 식별하기 위해 선택된 candidate key
+
+ex)  PLAYER(id, name, team_id, back_number, birth_date)의 primary key는?
+-> {id}, {team_id, back_number}
+그런데 보통 primary key를 고를때는 attribute 숫자가 적은 key를 고른다. -> {id}
+
+unique key
+- primary key가 아닌 candidate keys
+- alternate key
+
+ex)  PLAYER(id, name, team_id, back_number, birth_date)의 unique key는?
+-> {team_id, back_number}
+
+foreign key
+- 다른 relation의 PK를 참조하는 attributes set
+
+ex) PLAYER(id, name, team_id, back_number, birth_date)와 TEAM(id, name, manager)가 있을 때
+    TEAM의 PK를 참조하는 foreign key는 PLAYER의 {team_id}이다.
+
+Constraints
+
+constraints 의미
+- relation database의 relations들이 언제나 항상 지켜줘야 하는 제약 사항
+
+constraints 종류
+
+implicit constraints
+- relational data model 자체가 가지는 constraints
+- relation은 중복되는 tuple을 가질 수 없다.
+- relation 내에서는 같은 이름의 attribute를 가질 수 없다.
+
+schema based constraints
+- 주로 DDL을 통해 schema에 직접 명시할 수 있는 constraints
+- explicit constraints
+
+schema based constraints 종류
+
+domain constraint
+- attribute의 value는 해당 attribute의 domain에 속한 value여야 한다.
+ex) grade 학년을 뜻하는 attribute에 100이라는 value가 들어가는 상황
+
+key constraints
+- 서로 다른 tuples는 같은 value의 key를 가질 수 없다.
+______________________________________________________________|
+attribute  id     name   grade major  phone_num emer_phone_num|
+______________________________________________________________|
+tuple :  173225   배제욱    3    정통    010-~~      010-~~~    |
+______________________________________________________________|
+tuple :  173225   배제우    4    정통    010-~~      010-~~~    |
+
+현재 primary key인 id가 똑같다
+
+NULL value constraint
+- attribute가 NOT NULL로 명시됐다면 NULL을 값으로 가질 수 없다.
+
+ex) phone_num이 NOT NULL인 상황
+______________________________________________________________|
+attribute  id     name   grade major  phone_num emer_phone_num|
+______________________________________________________________|
+tuple :  173225   배제욱    3    정통    010-~~      010-~~~    |
+______________________________________________________________|
+tuple :  173225   배제우    4    정통    NULL        010-~~~    |
+
+entity integrity constraint
+- primary key는 value에 NULL을 가질 수 없다.
+
+ex)
+______________________________________________________________|
+attribute  id     name   grade major  phone_num emer_phone_num|
+______________________________________________________________|
+tuple :  NULL     배제욱    3    정통    010-~~      010-~~~    |
+______________________________________________________________|
+tuple :  173225   배제우    4    정통    NULL        010-~~~    |
+
+referential integrity constraint
+- FK와 PK와 도메인이 같아야 하고 PK에 없는 values를 FK가 값으로 가질 수 없다.
+
