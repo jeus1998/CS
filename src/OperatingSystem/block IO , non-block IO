@@ -1,0 +1,209 @@
+
+참고 자료 : [쉬운코드] https://www.youtube.com/watch?v=mb-QHxVfmcs&list=PLcXyemr8ZeoT-_8yBc_p_lVwRRqUaN8ET&index=20
+
+- Block IO
+- Non-Block IO
+
+I/O
+- input/output
+- 데이터의 입출력
+
+I/O 종류
+- network(socket)
+- file
+- pipe
+- device
+
+socket
+- 네트워크 통신은 socket을 통해서 데이터가 입출력 된다.
+
+backend server
+- 네트워크 상의 요청자(client)들과 각각 소켓을 열고 통신한다.
+
+block I/O와 non-block I/O가 어떻게 동작하는지 OS레벨에서 개념적 이해하기
+
+----------------------------------------------------------------------------------------------------
+block I/O
+- I/O 작업을 요청한 프로세스/스레드는 요청이 완료될 때까지 블락됨
+
+user mode --> thread1
+유저 모드에서 thread1이 진행
+
+이때 read(input)을 하고 싶으면
+read (blocking system call) (진행되던 thread1 : thread blocked)
+
+user mode -> kernel mode
+
+kernel mode
+initiate read I/O -> 관련 디바이스에게 요청
+
+<- read response 관련 디바이스 응답
+
+kernel mode -> user mode (data moved, from kernel space to user space)
+
+user mode --> thread1 진행
+
+Socket에서 block I/O란?
+
+socket A  socket B 2개가 존재하고 socketS가 socketA에게 데이터를 전송하는 상황 가정
+
+socket에는 2가지 buffer가 존재한다.
+- send_buffer
+- recv_buffer
+
+socket A 입장  - read(socketA)
+thread가 진행을 하다가 소켓 통신으로 데이터를 받는다고 하면(block I/O)에서
+해당 thread는 read system call을 하고
+recv_buffer에 데이터가 들어올 때까지 block 상태가 된다.
+
+recv_buffer에 데이터가 들어오면 다시 thread는 진행
+
+
+socket S 입장 - write(socketS)
+이때 write가 block이 된다. block이 되는 이유는 send_buffer에 데이터가 가득 차서 넣을 수 없는 상황에
+block이 된다
+그래서 send_buffer가 비워질 때까지 block이 되고 send_buffer에 자리가 생기면 block이 풀리고
+socketA에게 데이터를 전송한다.
+
+정리 send_buffer와 recv_buffer의 상태에 따라서 block이 된다.
+
+----------------------------------------------------------------------------------------------------
+non - block I/O
+
+프로세스/스레드를 블락시키지 않고 요청에 대한 현재 상태를 즉시 리턴
+
+user mode -> thread 진행
+read non-blocking system call 호출 컨텍스트 스위칭
+user mode -> kernel mode
+kernel mode(initiate read I/O)
+하지만 read한 데이터가 아직 없다.
+kernel mode -> user mode ( -1 (EAGAIN OR EWOULDBLOCK) )
+
+기존 스레드는 non - block I/O 이기 때문에 계속해서 작업을 한다.
+커널이 read response를 통해 데이터를 준비
+
+스레드가 다시 read non-blocking sysyem call 호출 kernel로 컨텍스트 스위칭
+
+kernel -> user (data moved(from kernel space to user space))
+
+정리
+- 블락되지 않고 즉시 리턴하기 때문에 스레드가 다른 작업을 수행할 수 있다.
+
+Socket에게 non-block I/O란?
+
+socket A - read / socket S - write
+
+socket A 입장
+read non-block system call 호출
+recv_buffer에는 데이터가 아직 없다.
+하지만 non-block system call 이기 때문에 바로 return (적절한 에러 코드)
+read non-block system call을 호출한 스레드는 계속 진행
+
+socket S 입장
+write non-block system call 호출
+send_buffer에 자리가 아직 없다.
+하지만 non-block system call 이기 때문에 바로 return (적절한 에러 코드)
+write non-block system call을 호출한 스레드는 계속 진행
+
+-------------------------------------------------------------------------------
+non-block I/O 이슈
+I/O 작업 완료를 어떻게 확인할 것인가?
+
+non-block I/O 결과 처리 방식
+
+1. 완료됐는지 반복적으로 확인
+read non-block system call을 반복적으로 호출
+
+문제점
+완료된 시간과 완료를 확인한 시간 사이의 갭으로 인해 처리 속도가 느려질 수 있음
+
+kernel이 데이터를 읽은 시점과 데이터를 요청한 스레드가 system call 을 보낸 시점의 차이가 발생
+-> time gap
+
+완료됐는지 반복적으로 확인하는 것은 CPU 낭비가 발생
+
+그렇다면 non-block I/O를 사용하는게 아닌 block I/O를 사용하면 되는거 아니냐?
+-> 만약 block I/O 방식인데 block된 스레드에게 데이터를 보내는 클라이언트가 계속 데이터를 보내지 않는다면
+서버의 다른 소켓은 클라이언트가 데이터를 보내서 데이터가 들어온 상황인데 처리를 해주지 않아서
+클라이언트 입장에서 불만이 생긴다.
+
+그래서 I/O multiplexing 방식이 나온다.
+
+2. I/O multiplexing 방식
+
+관심있는 I/O 작업들을 동시에 모니터링하고 그 중에 완료된 I/O 작업들을 한번에 알려줌
+I/O multiplexing 방식은 요청한 thread가 blocked or run(non-blocked) 둘다 가능하다.
+
+user mode -> thread
+
+I/O multiplexing system call
+monitor 2 sockets non-blocking read
+
+kernel
+initiate read I/O 1
+initiate read I/O 2
+
+kernel -> user -1
+
+그러다가 데이터가 들어왔다 kernel에
+read response1
+read response2
+
+그럼 kernel은 요청한 thread에게 notify data available를 보낸다.
+kernel -> user notify data available
+user -> kernel read non -blocking system call
+kernel -> user data moved
+
+I/O multiplexing 종류
+- select - 성능이 안좋다
+- poll - 성능이 안좋다
+- epoll - 리눅스
+- kqueue - mac os
+- IOCP(I/O completion port) - window
+
+Linux epoll
+
+서버 (소켓)     클라이언트 (소켓)
+sr1 <------------> sw1
+sr2 <------------> sw2
+sr3 <------------> sw3
+sr4 <------------> sw4
+sr5 <------------> sw5
+sr6 <------------> sw6
+sr7 <------------> sw7
+sr8 <------------> sw8
+
+sr1 ~ sr8 user -> kernel epoll 요청
+
+클라이언트 소켓 sw4, sw5, sw6가 데이터를 서버에 보낸다고 가정
+sr4, sr5, sr6에게 notify
+
+I/O multiplexing -> 네트워크 통신에 많이 사용
+
+3. Callback / signal 사용
+user -> kernel aio_read non-blocking system call
+
+kernel do
+initiate read I/O
+
+user -> run
+
+kernel do
+read response
+
+kernel -> user data moved from kernel space to user space with callback or signal
+
+종류
+POSIX AIO
+LINUX AIO
+
+널리 사용되지는 않는 것 같다.
+
+4. 그 외...
+linux : io_uring
+
+핵심은
+non-block I/O를 통해 I/O 요청 완료 전에도 다른 일을 할 수 있다는 것!
+
+
+
