@@ -1,0 +1,46 @@
+
+참고 자료 : [쉬운 코드] https://www.youtube.com/watch?v=xvi-n11kym0&list=PLcXyemr8ZeoT-_8yBc_p_lVwRRqUaN8ET&index=23
+
+- ADT 관점 List 개념
+- List 구현체 array list, linked list
+
+List
+- 값(value)들을 저장하는 추상자료형(ADT)
+- 순서가 있음
+- 중복을 허용함
+
+List는 언제 쓸까?
+Set이나 Map을 사용하는게 더 적절한 상황이 아니라면
+거의 대부분 List를 사용한다고 봐도 무리가 없다.
+
+ArrayList
+배열(array)를 사용하여 List 구현
+
+배열의 초기 size가 꽉찬 상황에서 데이터를 넣는 상황이 오면
+ArrayList는 size를 늘리고 기존 데이터를 복사해서 넣고 그 다음 새로운 데이터를 넣는다.
+
+Linked List
+노드를 연결(linked)시키는 형태로 구현
+
+head                           tail
+10|next 주소 -> 21|next 주소 -> 15|null
+
+LikedList는 ArrayList와 다르게 메모리 상에서 붙어있지 않는다
+
+연결 리스트의 종류
+단일 연결 리스트(Singly Linked List)
+- 각 원소가 자신의 다음 원소의 주소를 들고 있는 연결 리스트이다.
+
+이중 연결 리스트(Doubly Linked List)
+- 각 원소가 이전 원소와 다음 원소의 주소를 둘 다 들고 있다.
+- 단일 연결 리스트에서는 원소의 이전 원소가 무엇인지를 알 수  없는데 이중 연결 리스트에서는 알 수 있다.
+- 원소가 가지고 있어야 하는 정보가 1개 더 추가되니 메모리를 더 쓴다는 단점이 있다.
+
+원형 연결 리스트 (Circular Linked List)
+- 원형 연결 리스트는 처음과 끝이 연결됨
+- 그림에서는 단일 연결 리스트로 표현했지만 각 원소가 이전과 다음 원소의 주소를 들고 있어도 상관이 없다.
+
+
+자바 -> 연결 리스트 구현은 이중 연결 리스트이다.
+
+자세한 시간복잡도는 DataStructure/List/List구현체 시간복잡도.JPG를 확인하자.
