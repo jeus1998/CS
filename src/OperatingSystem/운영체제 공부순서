@@ -14,3 +14,4 @@
 - 스레드 풀(thread pool)
 - ThreadPoolTip [스레드 풀 개념 & 예제 코드]
 - block IO, non-block IO
+- 비동기 asynchronous
