@@ -1,0 +1,99 @@
+
+참고 자료 : [쉬운 코드] https://www.youtube.com/watch?v=EJNBLD3X2yg&list=PLcXyemr8ZeoT-_8yBc_p_lVwRRqUaN8ET&index=21
+
+- 관점에 따른 asynchronous 다양한 개념
+
+프로그래밍 관점
+
+synchronous 동기
+task1 -> task2 -> task3 (실행순서)
+
+synchronous programming
+-여러 작업(task)들을 순차적으로 실행하도록 개발
+
+Asynchronous 비동기
+
+task1 ->
+   task2 ->
+  task3 ->
+
+Asynchronous programming
+-여러 작업들을 독립적으로 실행하도록 개발
+
+asynchronous programming != multithreading
+
+asynchronous programming
+-여러 작업을 동시에 실행하는 프로그래밍 방법론
+
+multithreading
+-asynchronous programming의 한 종류
+
+asynchronous programming을 가능하게 하는 것은?
+- multi-threads
+- non-block I/O
+
+백엔드 프로그래밍의 추세
+스레드를 적게 쓰면서도
+non-block I/O를 통해
+전체 처리량을 늘리는 방향으로 발전 중
+
+-------------------------------------------------------------------------------------------------
+I/O 관점
+
+case1
+synchronous IO = block IO
+asynchronous IO =  non-block IO
+
+case2
+synchronous IO : 요청자가 IO 완료까지 챙겨야 할 때
+asynchronous IO : 완료를 notify 주거나 callback으로 처리
+
+case3
+asynchronous IO : block IO를 다른 thread에서 실행
+
+--------------------------------------------------------------------------------------------------
+백엔드 아키텍처 관점에서
+
+하나의 서비스는 기능과 역할에 따라 여러 개의 마이크로 서비스로 구성되고
+이들 사이에는 빈번하게 커뮤니케이션이 발생한다.
+
+synchronous communication
+
+A          B            C
+|
+ -API call->
+             API call ->
+                         |
+              <-- ok --
+             |
+  <-- ok ---
+|
+|
+
+A가 B의 API를 call 이때 B가 C의 API를 call
+그럼 C에서 응답을 하면 B가 받고 B는 다시 A에게 응답 A는 B에게 응답을 받고 진행
+
+이런 communicaion의 문제점은?
+
+만약 C에서 문제가 생겨서 B에게 응답을 못하면 B에도 문제가 생기고 A에도 문제가 생긴다.
+어떻게 해결?
+--> Message Q를 활용한 asynchronous communication
+
+
+synchronous communication
+
+A                     B                        C
+| produce             |                        |
+| ---->  Message Q --->                        |
+|               consume                        |
+|                     |  produce               |
+|                     | --> Message Q ---->    |
+|                     |              consume   |
+|                     |                        |
+|                     |                        |
+
+만약 C에서 문제가 생겨서 B에게 응답을 못해도 B는 Message Q만 바라보고 있기 때문에
+C의 문제가 B에게 영향 X 당연히 A에도 형향 X C 서비스만 문제 발생
+
+즉 전체 서비스 붕괴를 막는다.
+
