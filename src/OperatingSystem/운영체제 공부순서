@@ -13,3 +13,4 @@
 - 스레드 종류 정리 및 이해
 - 스레드 풀(thread pool)
 - ThreadPoolTip [스레드 풀 개념 & 예제 코드]
+- block IO, non-block IO
