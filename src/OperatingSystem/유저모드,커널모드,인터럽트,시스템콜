@@ -1,0 +1,154 @@
+
+참고자료 : [쉬운코드] https://www.youtube.com/watch?v=v30ilCpITnY&list=PLcXyemr8ZeoT-_8yBc_p_lVwRRqUaN8ET&index=17
+
+- 유저모드
+- 커널모드
+- 인터럽트
+- 시스템 콜
+- 프로그래밍 언어와의 관계
+
+User mode & Kernel mode
+
+User mode
+- 우리가 개발하는 프로그램은 일반적으로 유저 모드에서 실행
+
+User mode -> Kernel mode
+- 프로그램 실행중에 interrupt(인터럽트)가 발생
+- system call(시스템 콜)을 호출
+
+Kernel mode
+- 프로그램의 현재 cpu 상태를 저장
+- 커널이 인터럽트, 시스템 콜을 직접 처리 -> cpu에서 커널 코드가 실행
+- 처리가 완료되면 중단됐던 프로그램의 cpu 상태를 복원 or 다른 프로그램 실행
+
+Kernel mode -> User mode
+- 다시 통재권을 프로그램에게 반환
+
+User mode
+- 프로그램이 이어서 실행
+
+case : interrupt or system call 발생으로 user mode -> kernel mode 처리 이후 다시 중단됐던 프로그램 실행 과정
+user mode --> interrupt 발생 -> kernel mode -> (cpu : 현재 프로그램 state 저장  -> kernel code 실행
+-> 처리를 완료하고 중단됐던 프로그램 cpu 상태 복원) -> user mode(통제권 반환)
+
+커널(kernel)?
+- 운영체제의 핵심
+- 시스템의 전반을 관리/감독하는 역할
+- 하드웨어와 관련된 작업을 직접 실행
+
+커널 모드의 존재 이유?
+- 시스템을 보호하기 위해서
+- 컴퓨터 리소스를 직접 유저 모드에서 접근 못하도록 막기 위해
+
+인터럽트(interrupt)
+- 시스템에서 발생한 다양한 종류의 이벤트 혹은 그런 이벤트를 알리는 메커니즘
+- 언제든지 발생 가능
+
+인터럽트 종류
+- 전원(power)에 문제가 생겼을 때
+- IO 작업이 완료됐을 때
+- 시간이 다 됐을 때 (timer 관련)
+- 0으로 나눴을 때
+- 잘못된 메모리 공간에 접근을 시도할 때
+
+0으로 나눴을 때 & 잘못된 메모리 공간에 접근을 시도할 때 -> 프로그램 level에서 발생하는 interrupt -> 트랩(trap)
+
+인터럽트가 발생하면 cpu에서는 즉각적으로 인터럽트 처리를 위해 커널 코드를 커널 모드에서 실행
+
+시스템 콜(System Call)
+- 프로그램이 OS 커널이 제공하는 서비스를 이용하고 싶을 때 시스템 콜을 통해 실행
+
+시스템 콜 종류
+- 프로세스/스레드 관련 (프로세스/스레드 생성 or 제거)
+- 파일 I/O 관련
+- 소켓 관련 (네트워크 작업)
+- 장치(device) 관련 (키보드 입력)
+- 프로세스 통신 관련
+
+리눅스 - c언어 기반
+
+시스템 콜이 발생하면 해당 커널 코드가 커널 모드에서 실행
+
+-------------------------------------------------------------------------------------
+시스템 콜 & 인터럽트 예제: 파일 read
+
+환경 : single core CPU 스레드 2개(t1, t2)
+
+t1 state : running
+t2 state : ready (ready - queue)
+
+user mode t1 -->
+
+t1 스레드가 파일을 읽기 위해 read(시스템 콜 호출)
+user mode -> kernel mode (시스템 콜 처리)
+1. t1 cpu 상태 저장
+2. 파일 읽을 준비
+파일 read 작업은 파일로부터 읽을 내용을 buffer에서 찾을 수 있게 준비시키는 작업을 한다. (ssd 관련 작업)
+read system call은 block system call 이다.
+그래서 t1이 파일을 읽을 준비가 될 때까지 기다려야 한다. -> t1 state : running -> waiting
+3. t2 스레드는 ready -> running 컨텍스트 스위칭
+4. kernel mode -> user mode
+
+user mode t2 -->
+
+user mode에서 t2가 진행되던 중 t1 스레드가 파일을 읽을 준비가 완료되었다.
+이걸 알려주기 위해서 interrupt를 발생시킨다.
+
+user mode -> kernel mode (interrupt 처리)
+1. t2 cpu 상태 저장
+2. t1 state : waiting -> ready
+3. t2 cpu 상태 복원
+4. kernel mode -> user mode (t2에게 다시 권한을 준다.)
+
+user mode t2 -->
+
+t2 스레드가 진행을 하던 와중에 t2에게 할당된 cpu 점유시간(time slice)다 사용 (interrupt 발생) <- timer가 알려준다.
+
+user mode -> kernel mode (interrupt 처리)
+1. t2 cpu 상태 저장
+2. 컨텍스트 스위칭
+(t2 state : running -> ready)
+(t1 state : ready -> running)
+3. t1 cpu 상태 복원
+4. kernel mode -> user mode(t1에게 다시 통제권을 준다.)
+
+user mode t1 -->
+
+-------------------------------------------------------------------------------------------------------
+프로그래밍 언어와 시스템 콜
+
+하드웨어 혹은 시스템 관련 기능은 어떤 프로그램이라도 반드시 시스템 콜을 통해서만 사용 가능
+하지만 보통 우리는 개발할 때 직접 OS 시스템 콜을 사용한 적이 없다.
+그럼에도 우리는 지금까지 파일 I/O, 네트워크 I/O, 프로세스/스레드 관련 작업을 해왔다.
+
+어떻게 이게 가능했던 것일까?
+
+이것은 우리가 사용하는 프로그래밍 언어들이 시스템 콜을 포장(wrapping)하여
+간접적으로 사용할 수 있도록 제공했기 때문이다.
+
+ex)
+Thread thread = new Thread(); // 스레드 생성 -> 시스템 콜
+thread.start();
+
+java.lang.Thread.class
+
+public synchronized void start(){
+       boolean started = false;
+       try{
+         start0();
+         started = true;
+       }
+       finally{
+       }
+}
+
+private native void start0(); // native <- 대부분 os를 말한다.
+
+void startO() 메서드는 JVI(java native interface)를 통해서
+OS의 시스템 콜을 한다.
+
+그래서 리눅스 기반 OS라면 start0()은 clone 이라는 시스템 콜을 호출한다.
+
+정리
+high level 프로그래밍 언어가 시스템 콜을 사용하도록 시스템 콜을 wrapping하여 사용할 수 있도록 제공
+우리 같은 개발자들은 간접적으로 시스템 콜을 호출
