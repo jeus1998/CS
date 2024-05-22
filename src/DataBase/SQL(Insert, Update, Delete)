@@ -1,0 +1,214 @@
+
+참고 자료 : [쉬운 코드] https://www.youtube.com/watch?v=mgnd5JWeCK4&list=PLcXyemr8ZeoREWGhhZi5FZs6cvymjIBVe&index=4
+
+#지난 내용 리마인드
+
+IT 회사 관련 RDB 만들기
+- 부서, 사원, 프로젝트 관련 정보들을 저장할 수 있는 관계형 데이터베이스를 만들자
+- 사용할 RDBMS는 MySQL(InnoDB) <- db 엔진
+
+DEPARTMENT (부서)
+id, name, leader_id
+
+EMPLOYEE (직원)
+id, name, birth_data, sex, position, salary, dept_id
+
+PROJECT (프로젝트)
+id, name, leader_id, start_date, end_date
+
+WORKS_ON
+empl_id, proj_id
+
+#데이터 추가하기
+
+## EMPLOYEE
+
+누락한 부분이 있다. ->  position attribute
+
+# EMPLOYEE Table 다시 만들기
+create table EMPLOYEE (
+	id INT primary key,
+    name VARCHAR(30) NOT NULL ,
+    birth_date DATE,
+    sex CHAR(1)  CHECK(sex in('M','F')),
+    position varchar(10),
+    salary INT DEFAULT 50000000,
+    dept_id INT,
+    foreign key (dept_id) references DEPARTMENT(id)
+		 on delete SET null on update CASCADE,
+    check (salary >= 50000000)
+);
+
+데이터 넣기 INSERT INTO 테이블 VALUES
+- attribute 순서대로 값을 넣어줘야 한다.
+- 모든 attribute에 대응하는 값을 넣어줘야 한다.
+
+INSERT INTO employee
+    VALUES(1, 'MEESI', '1987-02-01', 'M', 'DEV_BACK', 100000000, null);
+
+INSERT INTO employee
+	VALUES(2, 'JANE', '1996-12-12', 'F', 'DSGN', 90000000, null);
+
+# 오류가 발생했을 때 테이블에 걸려있는 제약조건을 확인하는 용도
+SHOW CREATE TABLE employee;
+
+데이터 넣기 insert into 테이블 (attribute(s)) values (data(s));
+- attribute 순서를 내 마음대로
+- 넣고 싶은 attribute도 선택 가능
+
+insert INTO employee (name, birth_date, sex, position, id)
+values ('JENNY', '2000-10-12', 'f', 'DEV_BACK', 3);
+
+# 데이터 조회하기
+select * from employee;
+
+------------------------------------------------------------------------------------------------------
+INSERT statement 정리
+
+- INSERT INTO table_name VALUES(comma-separated all values); // 모든 attribute 값 넣기 - 1개의 튜플
+
+- INSERT INTO table_name (attributes list)
+    VALUES(attributes list 순서와 동일하게 comma-separated values); // 지정한 attribute들만 값 넣기 - 1개의 튜플
+
+- INSERT INTO table_name VALUES (.., ..), (.., ..), (.., ..);  // n개의 튜플
+
+# 여러개의 튜플 데이터 넣기
+insert into employee values
+(4, 'BROWN', '1996-03-13', 'M', 'CEO', 120000000, null),
+(5, 'DINGYO', '1990-11-05', 'M', 'CTO', 120000000, null),
+(6, 'JULIA', '1986-12-11', 'F', 'CFO', 120000000, NULL),
+(7, 'MINA', '1993-06-17', 'F', 'DSGN', 80000000, NULL),
+(8, 'JOHN', '1999-10-22', 'M', 'DEV_FRONT', 65000000, NULL),
+(9, 'HENRY', '1982-05-20', 'M', 'HR', 82000000, NULL),
+(10, 'NICOLE', '1991-03-26', 'F', 'DEV_FRONT', 90000000, NULL),
+(11, 'SUZANNE', '1993-03-23', 'F', 'PO', 75000000, NULL),
+(12, 'CURRY', '1998-01-15', 'M', 'PLN', 85000000, NULL),
+(13, 'JISUNG', '1989-07-07', 'M', 'PO', 90000000, NULL),
+(14, 'SAM', '1992-08-04', 'M', 'DEV_INFRA', 70000000, NULL);
+
+# department 데이터 넣기
+insert into department values
+(1001, 'headquarter', 4),
+(1002, 'HR', 6),
+(1003, 'development', 1),
+(1004, 'design', 3),
+(1005, 'product', 13);
+
+ # project 데이터 넣기
+ insert into project values
+ (2001, '쿠폰구매/선물 서비스 개발', 13, '2022-03-10', '2022-07-09'),
+ (2002, '확정성 있게 백엔드 리팩토링', 13, '2022-01-23', '2022-03-23'),
+ (2003, '홈페이지 UI 개선', 11, '2022-05-09', '2022-06-11');
+
+# works_on 데이터 넣기
+insert into works_on values
+(5, 2001),
+(13, 2001),
+(1, 2001),
+(8, 2001),
+(7, 2003),
+(2, 2003),
+(12, 2003);
+
+-------------------------------------------------------------------------------------------------
+데이터 수정하기
+
+update statement1
+
+- employee id가 1인 Messi는 개발(development)팀 소속이다.
+- 개발팀 ID는 1003이다.
+- Messi의 소속팀 정보를 업데이트 해주자.
+
+# messi update
+update employee set dept_id = 1003 where id = 1;
+
+# update check
+select * from employee where id = 1;
+
+# 나머지 update
+update employee set dept_id = 1004 where id = 2;
+update employee set dept_id = 1003 where id = 3;
+update employee set dept_id = 1005 where id = 13;
+update employee set dept_id = 1003 where id = 14;
+update employee set dept_id = 1003 where id = 8;
+update employee set dept_id = 1003 where id = 10;
+
+update statement2
+
+- 개발팀 연봉을 모두 두 배로 인상하고 싶다.
+- 개발 팀 ID는 1003이다.
+
+# 개발팀 부서 연봉 2배 인상 dept_id = 1003
+update employee set salary = salary * 2
+where dept_id = 1003;
+
+update statement3
+
+- 프로젝트 ID 2003에 참여한 임지원의 연봉을 두 배로 인상하고 싶다
+
+# 프로젝트 ID 2003에 참여한 임직원의 연봉을 두 배로 인상하고 싶다
+update employee , works_on
+set employee.salary = employee.salary * 2
+where works_on.empl_id = employee.id and works_on.proj_id = 2003;
+
+update statement4
+
+- 회사의 모든 구성원의 연봉을 두 배로 올리자!
+
+update employee set salary = salary * 2; (실패)
+
+# safe mod error 발생
+- MySQL에서 Update 또는 Delete 할 때 where 절이 없거나, where 절에 key column 외의 비교문일 때 실행되지 않도록 막아두는 mode
+
+MySQL Workbench에서 safe updates 해제 방법
+Edit -> Preferences -> Safe updates 체크 해제 -> 재시작
+
+update employee set salary = salary * 2; (성공)
+
+Update Statement 정리
+
+update table_name(s)
+set attribute = value [, attribute = value, ...]
+[where condition(s)];
+
+데이터 삭제하기
+
+delete statement1
+- john이 퇴사를 하게 되면서 employee 테이블에서 john 정보를 삭제해야 한다.
+- john의 employee id : 8
+- 현재 john은 project 2001에 참여하고 있다.
+
+# john 삭제 works_on에 있는 john 정보는 cascade 조건으로 같이 삭제
+delete from employee where id = 8;
+
+delete statement2
+- jane이 휴직을 떠나게 되면서 현재 진행 중인 프로젝트에서 중도하차하게 됐다.
+- jane의 id는 2다.
+
+# jane 프로젝트 하차 시키기
+delete from works_on where empl_id = 2;
+
+delete statement3
+- 현재 Dingyo가 2개의 프로젝트에 참여하고 있었는데
+- 프로젝트 2001에 선택과 집중을 하기로 하고 프로젝트 2002에서는 빠지기로 했다.
+- Dingyo의 id는 5다.
+
+# Dingyo 2002 project 빠지기
+delete from works_on
+where empl_id = 5 and proj_id = 2002;
+
+# Dingyo 2001 project 제외 다 빠지기
+delete from works_on
+where empl_id = 5 and proj_id <> 2001; #  <> , != 모두 똑같다
+
+delete statement4
+- 회사에 큰 문제가 생겨서 진행중인 모든 프로젝트들이 중단됐다.
+
+delete from project;
+delete from works_on;
+
+DELETE Statement 정리
+
+DELETE FROM table_name
+[WHERE condition(s)];
+
