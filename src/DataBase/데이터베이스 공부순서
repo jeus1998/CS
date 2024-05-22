@@ -1,5 +1,6 @@
 
 - 데이터베이스 기본 개념 (txt)
 - 관계형 데이터베이스. 기본키, 외래키, constraints
-- SQL & Query : MySQLQuery/1.sql
--
+- SQL(DDL)  + Query : MySQLQuery/1.sql
+- SQL(Insert, Update, Delete) + Query : MySQLQuery/2.sql
+
