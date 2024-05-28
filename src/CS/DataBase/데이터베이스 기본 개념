@@ -3,11 +3,11 @@
 
 DB & DBMS & DB System
 
-DB(DataBase)
+DB(CS.DataBase)
 전자적으로(electronically) 저장되고 사용되는
 관련있는(related) 데이터들의 조직화된 집합(organized collection)
 
-DBMS(DataBase Management Systems)
+DBMS(CS.DataBase Management Systems)
 - 사용자에게 DB를 정의하고 만들고 관리하는 기능을 제공하는 소프트웨어 시스템
 - DB를 정의하다 보면 부가적인 데이터가 발생한다.
 

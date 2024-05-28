@@ -43,4 +43,4 @@ LikedList는 ArrayList와 다르게 메모리 상에서 붙어있지 않는다
 
 자바 -> 연결 리스트 구현은 이중 연결 리스트이다.
 
-자세한 시간복잡도는 DataStructure/List/List구현체 시간복잡도.JPG를 확인하자.
+자세한 시간복잡도는 CS.DataStructure/List/List구현체 시간복잡도.JPG를 확인하자.

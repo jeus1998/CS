@@ -1,4 +1,4 @@
-package OperatingSystem;
+package CS.OperatingSystem;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;

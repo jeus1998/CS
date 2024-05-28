@@ -1,4 +1,4 @@
-package OperatingSystem;
+package CS.OperatingSystem;
 
 /**
  * 참고 자료 : [쉬운 코드] https://www.youtube.com/watch?v=_dzRW48NB9M&list=PLcXyemr8ZeoT-_8yBc_p_lVwRRqUaN8ET&index=15

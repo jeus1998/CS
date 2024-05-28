@@ -1,4 +1,4 @@
-package OperatingSystem;
+package CS.OperatingSystem;
 
 /**
  * 주제 : 자바에게 모니터란?
