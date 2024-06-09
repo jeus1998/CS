@@ -1,5 +1,5 @@
 
-# SQL 데이터 조회하기 - subquery
+# SQL SELECT 데이터 조회하기 - subquery
 
 ### 참고 자료
 쉬운 코드 👉  https://www.youtube.com/watch?v=lwmwlA2WhFc&list=PLcXyemr8ZeoREWGhhZi5FZs6cvymjIBVe&index=6
@@ -221,6 +221,28 @@ where d.id not in ( select e.dept_id
                     where e.birth_date >= '2000-01-01'
 );
 ```
+
+### 주의 NOT EXISTS VS NOT IN
+
+```sql
+SELECT id, name
+from department
+where not exists (select *
+                  from employee
+                  where department.id = employee.dept_id and employee.birth_date > '1999-12-31');
+                  
+ # 2000년대생이 없는 부서의 ID와 이름을 알고 싶다 Not In 사용하기 
+ 
+ SELECT d.id, d.name
+ from department d
+ where d.id not in ( select e.dept_id
+					 from employee e
+				     where e.birth_date > '1999-12-31');
+```
+- 두 쿼리 결과가 다르게 나와서 알아보니까 
+- dept_id에 null이 있으면
+- not in: false
+- not exists: true  <- null 값에 대해서도 없다고 판단 
 
 ### ❓ 리더보다 높은 연봉을 받는 부서원을 가진 리더의 ID와 이름과 연봉을 알고 싶다
 
