@@ -5,6 +5,7 @@
 - [DB 기본 개념](https://github.com/jeus1998/CS/blob/main/src/EasyCodeCS/DataBase/1-DataBase%20%EA%B8%B0%EB%B3%B8%EA%B0%9C%EB%85%90.md)
 - [Relational DataBase, Key, Constraints](https://github.com/jeus1998/CS/blob/main/src/EasyCodeCS/DataBase/2-Relational%20DataBase%2C%20Key%2C%20Constraints.md)
 - [SQL, Attribute DataType, Constraints, DDL(CREATE, ALTER, DROP)](https://github.com/jeus1998/CS/blob/main/src/EasyCodeCS/DataBase/3-SQL%2C%20Attribute%20DataType%2C%20Constraints%2C%20DDL(CREATE%2C%20ALTER%2C%20DROP).md)
+- [DML(Insert, Update, Delete)](https://github.com/jeus1998/CS/blob/main/src/EasyCodeCS/DataBase/4-DML(Insert%2C%20Update%2C%20Delete).md)
 
 ## Network
 
