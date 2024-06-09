@@ -3,6 +3,7 @@
 ## DataBase
 
 - [DB 기본 개념](https://github.com/jeus1998/CS/blob/main/src/EasyCodeCS/DataBase/1-DataBase%20%EA%B8%B0%EB%B3%B8%EA%B0%9C%EB%85%90.md)
+- [Relational DataBase, Key, Constraints](https://github.com/jeus1998/CS/blob/main/src/EasyCodeCS/DataBase/2-Relational%20DataBase%2C%20Key%2C%20Constraints.md)
 
 ## Network
 
