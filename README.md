@@ -6,6 +6,7 @@
 - [Relational DataBase, Key, Constraints](https://github.com/jeus1998/CS/blob/main/src/EasyCodeCS/DataBase/2-Relational%20DataBase%2C%20Key%2C%20Constraints.md)
 - [SQL, Attribute DataType, Constraints, DDL(CREATE, ALTER, DROP)](https://github.com/jeus1998/CS/blob/main/src/EasyCodeCS/DataBase/3-SQL%2C%20Attribute%20DataType%2C%20Constraints%2C%20DDL(CREATE%2C%20ALTER%2C%20DROP).md)
 - [DML(Insert, Update, Delete)](https://github.com/jeus1998/CS/blob/main/src/EasyCodeCS/DataBase/4-DML(Insert%2C%20Update%2C%20Delete).md)
+- [SELECT 데이터 조회하기 (기초)](https://github.com/jeus1998/CS/blob/main/src/EasyCodeCS/DataBase/5-SELECT%20%EB%8D%B0%EC%9D%B4%ED%84%B0%20%EC%A1%B0%ED%9A%8C%ED%95%98%EA%B8%B0%20(%EA%B8%B0%EC%B4%88).md)
 
 ## Network
 
