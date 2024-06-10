@@ -1,4 +1,4 @@
-# stored procedure
+# stored procedure(basic & procedure vs function)
 
 ### stored procedure?
 
