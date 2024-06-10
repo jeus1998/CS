@@ -11,6 +11,11 @@
 - [SELECT 데이터 조회하기(NULL, three-valued logic)](https://github.com/jeus1998/CS/blob/main/src/EasyCodeCS/DataBase/7-SELECT%20%EB%8D%B0%EC%9D%B4%ED%84%B0%20%EC%A1%B0%ED%9A%8C%ED%95%98%EA%B8%B0(NULL%2C%20three-valued%20logic).md)
 - [SELECT 데이터 조회하기(Join)](https://github.com/jeus1998/CS/blob/main/src/EasyCodeCS/DataBase/8-SELECT%20%EB%8D%B0%EC%9D%B4%ED%84%B0%20%EC%A1%B0%ED%9A%8C%ED%95%98%EA%B8%B0(JOIN).md)
 - [SELECT 데이터 조회하기(group by, order by, aggregate function)](https://github.com/jeus1998/CS/blob/main/src/EasyCodeCS/DataBase/9-SELECT(group%20by%2C%20order%20by%2C%20aggregate%20function).md)
+- [stored function](https://github.com/jeus1998/CS/blob/main/src/EasyCodeCS/DataBase/10-stored%20function.md)
+- [stored procedure(basic & procedure vs function)](https://github.com/jeus1998/CS/blob/main/src/EasyCodeCS/DataBase/11-stored%20procedure.md)
+- [stored procedure2(stored procedure 의미, 장단점)](https://github.com/jeus1998/CS/blob/main/src/EasyCodeCS/DataBase/12-stored%20procedure2(stored%20procedure%20%EC%9D%98%EB%AF%B8%2C%20%EC%9E%A5%EB%8B%A8%EC%A0%90).md)
+- [SQL-trigger](https://github.com/jeus1998/CS/blob/main/src/EasyCodeCS/DataBase/13-SQL%20trigger.md)
+- [Transaction & ACID](https://github.com/jeus1998/CS/blob/main/src/EasyCodeCS/DataBase/14-Transaction%20%26%20ACID.md)
 
 
 ## Network
