@@ -10,6 +10,7 @@
 - [SELECT 데이터 조회하기 (subquery)](https://github.com/jeus1998/CS/blob/main/src/EasyCodeCS/DataBase/6-SELECT%20%EB%8D%B0%EC%9D%B4%ED%84%B0%20%EC%A1%B0%ED%9A%8C%ED%95%98%EA%B8%B0(subquery).md)
 - [SELECT 데이터 조회하기(NULL, three-valued logic)](https://github.com/jeus1998/CS/blob/main/src/EasyCodeCS/DataBase/7-SELECT%20%EB%8D%B0%EC%9D%B4%ED%84%B0%20%EC%A1%B0%ED%9A%8C%ED%95%98%EA%B8%B0(NULL%2C%20three-valued%20logic).md)
 - [SELECT 데이터 조회하기(Join)](https://github.com/jeus1998/CS/blob/main/src/EasyCodeCS/DataBase/8-SELECT%20%EB%8D%B0%EC%9D%B4%ED%84%B0%20%EC%A1%B0%ED%9A%8C%ED%95%98%EA%B8%B0(JOIN).md)
+- [SELECT 데이터 조회하기(group by, order by, aggregate function)](https://github.com/jeus1998/CS/blob/main/src/EasyCodeCS/DataBase/9-SELECT(group%20by%2C%20order%20by%2C%20aggregate%20function).md)
 
 
 ## Network
