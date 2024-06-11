@@ -16,6 +16,9 @@
 - [stored procedure2(stored procedure 의미, 장단점)](https://github.com/jeus1998/CS/blob/main/src/EasyCodeCS/DataBase/12-stored%20procedure2(stored%20procedure%20%EC%9D%98%EB%AF%B8%2C%20%EC%9E%A5%EB%8B%A8%EC%A0%90).md)
 - [SQL-trigger](https://github.com/jeus1998/CS/blob/main/src/EasyCodeCS/DataBase/13-SQL%20trigger.md)
 - [Transaction & ACID](https://github.com/jeus1998/CS/blob/main/src/EasyCodeCS/DataBase/14-Transaction%20%26%20ACID.md)
+- [concurrency control 기초 - schedule & serializability](https://github.com/jeus1998/CS/blob/main/src/EasyCodeCS/DataBase/15-concurrency%20control%20%EA%B8%B0%EC%B4%88%20schedule%20%26%20serializability.md)
+- [concurrency control 기초 recoverability](https://github.com/jeus1998/CS/blob/main/src/EasyCodeCS/DataBase/16-concurrency%20control%20%EA%B8%B0%EC%B4%88%20recoverability.md)
+- [transaction isolation level & snapshot isolation](https://github.com/jeus1998/CS/blob/main/src/EasyCodeCS/DataBase/17-transaction%20isolation%20level%20%26%20snapshot%20isolation.md)
 
 
 ## Network
