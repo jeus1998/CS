@@ -3,7 +3,7 @@
 ### 목차
 - schedule
 - serializability
-- isolation울 보장하는 기초 이론 
+- isolation을 보장하는 기초 이론 
 
 ### Schedule - 실행 순서 case
 
