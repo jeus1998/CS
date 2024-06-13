@@ -2,6 +2,7 @@
 
 ## DataBase
 
+### 유투브 쉬운 코드 
 - [DB 기본 개념](https://github.com/jeus1998/CS/blob/main/src/EasyCodeCS/DataBase/1-DataBase%20%EA%B8%B0%EB%B3%B8%EA%B0%9C%EB%85%90.md)
 - [Relational DataBase, Key, Constraints](https://github.com/jeus1998/CS/blob/main/src/EasyCodeCS/DataBase/2-Relational%20DataBase%2C%20Key%2C%20Constraints.md)
 - [SQL, Attribute DataType, Constraints, DDL(CREATE, ALTER, DROP)](https://github.com/jeus1998/CS/blob/main/src/EasyCodeCS/DataBase/3-SQL%2C%20Attribute%20DataType%2C%20Constraints%2C%20DDL(CREATE%2C%20ALTER%2C%20DROP).md)
@@ -20,6 +21,8 @@
 - [concurrency control 기초 recoverability](https://github.com/jeus1998/CS/blob/main/src/EasyCodeCS/DataBase/16-concurrency%20control%20%EA%B8%B0%EC%B4%88%20recoverability.md)
 - [transaction isolation level & snapshot isolation](https://github.com/jeus1998/CS/blob/main/src/EasyCodeCS/DataBase/17-transaction%20isolation%20level%20%26%20snapshot%20isolation.md)
 
+### 인프런 - 생활 코딩 
+- [MySQL 기본, DB 개념](https://github.com/jeus1998/CS/blob/main/src/CS2/DataBase/Codingforlife/MySQL%20%EA%B8%B0%EC%B4%88.md)
 
 ## Network
 
