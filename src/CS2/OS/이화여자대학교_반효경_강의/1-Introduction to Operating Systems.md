@@ -1,4 +1,4 @@
-# 강의 소개, 운영 체제
+# Introduction to Operating Systems
 
 ## 강의 목표
 
