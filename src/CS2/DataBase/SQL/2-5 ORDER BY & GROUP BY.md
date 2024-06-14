@@ -1,0 +1,23 @@
+# ORDER BY & GROUP BY
+
+### GROUP BY 
+
+- 하나 이상의 열을 기준으로 그룹을 묶어서 결과를 반환
+- 집계함수를 사용 가능 (MAX, MIN, AVG, COUNT)
+- GROUP BY에서 지정한 컬럼들과 집계 함수만 SELECT 계산식에 사용 할 수 있음
+
+```sql
+SELECT   CUSTOMERSEX, CUSTOMERADDRESS, CUSTOMERAGE, count(*) AS 인원수 FROM CUSTOMER
+group by CUSTOMERSEX, CUSTOMERADDRESS, CUSTOMERAGE
+ORDER BY CUSTOMERSEX, CUSTOMERADDRESS, CUSTOMERAGE;
+```
+
+```sql
+SELECT CUSTOMERSEX, MAX(CUSTOMERAGE) AS 성별최고나이 FROM CUSTOMER
+GROUP BY CUSTOMERSEX
+ORDER BY CUSTOMERSEX;
+```
+
+⭐️⭐️ ️정리
+- GROUP BY 절에서 사용한 컬럼만 SELECT 문에서 사용 가능 
+- 하지만 집계함수와 함께 사용한다면 GROUP BY에 없는 컬럼도 사용 가능 
