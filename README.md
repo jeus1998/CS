@@ -35,7 +35,8 @@
 
 ### MyRecord
 - [MySQL 스토리지 엔진, REDO, UNDO 기초](https://github.com/jeus1998/CS/blob/main/src/CS2/DataBase/MySQL/MySQL%20-%20%EC%8A%A4%ED%86%A0%EB%A6%AC%EC%A7%80%20%EC%97%94%EC%A7%84%20%26%20REDO%2C%20UNDO.md)
-
+- [INDEX(인덱스)](https://github.com/jeus1998/CS/blob/main/src/CS2/DataBase/MySQL/Index(%EC%9D%B8%EB%8D%B1%EC%8A%A4).md)
+  - 클러스터형 인덱스, 보조 인덱스(비클러스터형 인덱스), 사용 방법, 주의점 
 ## Network
 
 - [네트워크 & 인터넷](https://github.com/jeus1998/CS/blob/main/src/EasyCodeCS/Network/2%20-%20%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC%EC%99%80%20%EC%9D%B8%ED%84%B0%EB%84%B7%20%EA%B0%9C%EB%85%90.md)
