@@ -34,7 +34,7 @@
 ### 인프런 - DataBase(Modeling)
 
 ### MyRecord
-- [스토리지 엔진, REDO, UNDO 기초](https://github.com/jeus1998/CS/blob/main/src/CS2/DataBase/MySQL/MySQL%20-%20%EC%8A%A4%ED%86%A0%EB%A6%AC%EC%A7%80%20%EC%97%94%EC%A7%84%20%26%20REDO%2C%20UNDO.md)
+- [MySQL 스토리지 엔진, REDO, UNDO 기초](https://github.com/jeus1998/CS/blob/main/src/CS2/DataBase/MySQL/MySQL%20-%20%EC%8A%A4%ED%86%A0%EB%A6%AC%EC%A7%80%20%EC%97%94%EC%A7%84%20%26%20REDO%2C%20UNDO.md)
 
 ## Network
 
