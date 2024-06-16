@@ -24,6 +24,13 @@
 ### 인프런 - 생활 코딩 
 - [MySQL 기본, DB 개념](https://github.com/jeus1998/CS/blob/main/src/CS2/DataBase/Codingforlife/MySQL%20%EA%B8%B0%EC%B4%88.md)
 
+### 인프런 - DataBase(SQL)
+- [DB](https://github.com/jeus1998/CS/tree/main/src/CS2/DataBase/SQL)
+  - CRUD, csv 파일 DB 넣기, 연산자, Expression, OrderBy GroupBy, 집계함수, 순위함수, 스칼라함수
+  - Join(Cross, Inner, Outer), View, StoredFunction, StoredProcedure, Trigger
+  - SubQuery(Select, from, where)
+  - Transaction - ACID
+
 ## Network
 
 - [네트워크 & 인터넷](https://github.com/jeus1998/CS/blob/main/src/EasyCodeCS/Network/2%20-%20%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC%EC%99%80%20%EC%9D%B8%ED%84%B0%EB%84%B7%20%EA%B0%9C%EB%85%90.md)
