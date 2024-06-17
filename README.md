@@ -19,7 +19,8 @@
 - [Transaction & ACID](https://github.com/jeus1998/CS/blob/main/src/EasyCodeCS/DataBase/14-Transaction%20%26%20ACID.md)
 - [concurrency control 기초 - schedule & serializability](https://github.com/jeus1998/CS/blob/main/src/EasyCodeCS/DataBase/15-concurrency%20control%20%EA%B8%B0%EC%B4%88%20schedule%20%26%20serializability.md)
 - [concurrency control 기초 recoverability](https://github.com/jeus1998/CS/blob/main/src/EasyCodeCS/DataBase/16-concurrency%20control%20%EA%B8%B0%EC%B4%88%20recoverability.md)
-- [transaction isolation level & snapshot isolation](https://github.com/jeus1998/CS/blob/main/src/EasyCodeCS/DataBase/17-transaction%20isolation%20level%20%26%20snapshot%20isolation.md)
+- [DB Anormaly & Snapshot isolation](https://github.com/jeus1998/CS/blob/main/src/EasyCodeCS/DataBase/17-1%20%EC%9D%B4%EC%83%81%ED%98%84%EC%83%81%2C%20Isolation%20level.md)
+- [DB Anormaly & Snapshot isolation & RDBMS](https://github.com/jeus1998/CS/blob/main/src/EasyCodeCS/DataBase/17-2%20transaction%20isolation%20level%20%26%20snapshot%20isolation.md)
 
 ### 인프런 - 생활 코딩 
 - [MySQL 기본, DB 개념](https://github.com/jeus1998/CS/blob/main/src/CS2/DataBase/Codingforlife/MySQL%20%EA%B8%B0%EC%B4%88.md)
