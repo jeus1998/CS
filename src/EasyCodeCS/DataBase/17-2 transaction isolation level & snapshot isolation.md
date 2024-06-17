@@ -5,6 +5,7 @@
 ### Dirty Read
 
 ![20.JPG](Image%2F20.JPG)
+- commit 되지 않은 변화를 읽음 
 
 ### Non-repeatable Read
 
@@ -65,6 +66,9 @@ isolation level
 
 ![27.JPG](Image%2F27.JPG)
 - 실제 구현에 기반해서 isolation level 정의
+- 상업적인 DBMS에서 사용되는 방법을 반영해서 iolation level을 구분하지 않았다. ➡️ SNAPSHOT ISOLATION
+- 기존 표준에서 정의한 iolation level은 이상현상을 바탕으로 어느정도 허용하는지에 따라 구분 
+- SNAPSHOT ISOLATION은 concurrency control 구현에 기반하여 정의된 isolation  
 
 예제
 - init data: x = 50, y = 50 
@@ -73,17 +77,19 @@ isolation level
 
 ![28.JPG](Image%2F28.JPG)
 
-### 실무에서 isolation level 
+### RDBMS isolation level 
 
-MySQL
+MySQL(innoDB)
 ![29.JPG](Image%2F29.JPG)
 - 표준 SQL과 동일 
 
 Oracle
 ![30.JPG](Image%2F30.JPG)
+- Read uncommitted level 제공 ❌
 - Read committed
-- serializable 
-  - SNAPSHOT isolation level과 동일하게 동작
+- REPETABLE READ ➡️ SERIALIZABLE
+- SERIALIZABLE ➡️ SERIALIZABLE 
+- SERIALIZABLE: SNAPSHOT ISOLATION 과 동일하게 동작
 
 SQL server
 ![31.JPG](Image%2F31.JPG)
@@ -92,6 +98,13 @@ SQL server
 
 PostgreSQL
 ![32.JPG](Image%2F32.JPG)
-- Repeatable read = SNAPSHOT isolation level 
+- Repeatable read = SNAPSHOT ISOLATION LEVEL 
 - 이상현상 추가
+
+RDBMS 
+- 주요 RDBMS는 SQL 표준에 기반해서 ISOLATION LEVEL을 정의 
+- RDBMS마다 제공하는 ISOLATION LEVEL이 다르다
+- 같은 이름의 ISOLATION LEVEL이라도 동작 방식이 다를 수 있다 
+- 사용하는 RDBMS ISOLATION LEVEL을 잘 파악해서 적절한 LEVEL을 사용할 수 있도록 하자 
+
 
