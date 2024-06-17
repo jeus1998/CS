@@ -32,6 +32,11 @@
   - SubQuery(Select, from, where)
   - Transaction - ACID
 
+### 인프런 - DataBase(Modeling)  
+- [Modeling](https://github.com/jeus1998/CS/tree/main/src/CS2/DataBase/Modeling)
+  - 1:M, M:N, 1:1 관계
+  - 정규화 
+
 ### 인프런 - DataBase(Modeling)
 
 ### MyRecord
