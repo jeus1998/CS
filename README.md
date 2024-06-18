@@ -57,6 +57,8 @@
 - [cpu bound & io bound & 스레드 개수](https://github.com/jeus1998/CS/blob/main/src/EasyCodeCS/OperatingSystem/3-cpu%20bound%20%26%20io%20bound.md)
 - [동기화(Synchronization), 경쟁 조건(race condition), 임계 영역(critical section)](https://github.com/jeus1998/CS/blob/main/src/EasyCodeCS/OperatingSystem/4-Synchronization%2C%20race%20condition%2C%20critical%20section.md)
 - [spinlock & mutex & semaphore](https://github.com/jeus1998/CS/blob/main/src/EasyCodeCS/OperatingSystem/5-spinlock%20%26%20mutex%20%26%20semaphore.md)
+- [monitor](https://github.com/jeus1998/CS/blob/main/src/EasyCodeCS/OperatingSystem/6-monitor.md)
+  - [java monitor example](https://github.com/jeus1998/CS/blob/main/src/EasyCodeCS/OperatingSystem/Test/MonitorTest.java)
 
 ## Programming 
 
