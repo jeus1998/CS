@@ -56,6 +56,7 @@
 - [컨테스트 스위칭, PCB, TCB](https://github.com/jeus1998/CS/blob/main/src/EasyCodeCS/OperatingSystem/2-%EC%BB%A8%ED%85%8C%EC%8A%A4%ED%8A%B8%20%EC%8A%A4%EC%9C%84%EC%B9%AD%2C%20PCB%2C%20TCB.md)
 - [cpu bound & io bound & 스레드 개수](https://github.com/jeus1998/CS/blob/main/src/EasyCodeCS/OperatingSystem/3-cpu%20bound%20%26%20io%20bound.md)
 - [동기화(Synchronization), 경쟁 조건(race condition), 임계 영역(critical section)](https://github.com/jeus1998/CS/blob/main/src/EasyCodeCS/OperatingSystem/4-Synchronization%2C%20race%20condition%2C%20critical%20section.md)
+- [spinlock & mutex & semaphore](https://github.com/jeus1998/CS/blob/main/src/EasyCodeCS/OperatingSystem/5-spinlock%20%26%20mutex%20%26%20semaphore.md)
 
 ## Programming 
 
