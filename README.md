@@ -54,6 +54,8 @@
 
 - [프로세스, 스레드, 멀티태스킹, 멀티스레딩, 멀티프로세싱, 멀티프로그래밍](https://github.com/jeus1998/CS/blob/main/src/EasyCodeCS/OperatingSystem/1-%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4%2C%20%EC%8A%A4%EB%A0%88%EB%93%9C%2C%20%EB%A9%80%ED%8B%B0%ED%83%9C%EC%8A%A4%ED%82%B9%2C%20%EB%A9%80%ED%8B%B0%EC%8A%A4%EB%A0%88%EB%94%A9%2C%20%EB%A9%80%ED%8B%B0%ED%94%84%EB%A1%9C%EC%84%B8%EC%8B%B1%2C%20%EB%A9%80%ED%8B%B0%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D.md)
 - [컨테스트 스위칭, PCB, TCB](https://github.com/jeus1998/CS/blob/main/src/EasyCodeCS/OperatingSystem/2-%EC%BB%A8%ED%85%8C%EC%8A%A4%ED%8A%B8%20%EC%8A%A4%EC%9C%84%EC%B9%AD%2C%20PCB%2C%20TCB.md)
+- [cpu bound & io bound & 스레드 개수](https://github.com/jeus1998/CS/blob/main/src/EasyCodeCS/OperatingSystem/3-cpu%20bound%20%26%20io%20bound.md)
+- [동기화(Synchronization), 경쟁 조건(race condition), 임계 영역(critical section)](https://github.com/jeus1998/CS/blob/main/src/EasyCodeCS/OperatingSystem/4-Synchronization%2C%20race%20condition%2C%20critical%20section.md)
 
 ## Programming 
 
