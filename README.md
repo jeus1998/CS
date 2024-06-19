@@ -59,6 +59,8 @@
 - [spinlock & mutex & semaphore](https://github.com/jeus1998/CS/blob/main/src/EasyCodeCS/OperatingSystem/5-spinlock%20%26%20mutex%20%26%20semaphore.md)
 - [monitor](https://github.com/jeus1998/CS/blob/main/src/EasyCodeCS/OperatingSystem/6-monitor.md)
   - [java monitor example](https://github.com/jeus1998/CS/blob/main/src/EasyCodeCS/OperatingSystem/Test/MonitorTest.java)
+- [교착상태](https://github.com/jeus1998/CS/tree/main/src/EasyCodeCS/OperatingSystem)
+  - [java deadlock example](https://github.com/jeus1998/CS/blob/main/src/EasyCodeCS/OperatingSystem/Test/DeadlockTest.java)
 
 ## Programming 
 
