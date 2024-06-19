@@ -69,6 +69,12 @@
   - 프로그램 Execution Stages
   - Garbage Object
 
+## DataStructure
+
+- [스택, 큐](https://github.com/jeus1998/CS/blob/main/src/EasyCodeCS/DataStructure/1-Stack%20%26%20Queue.md)
+- [우선순위 큐, 힙](https://github.com/jeus1998/CS/blob/main/src/EasyCodeCS/DataStructure/2-PriorityQueue%20%26%20Heap.md)
+
+
 ## Web Development Knowledge
 
 - [REST API](https://github.com/jeus1998/CS/blob/main/src/Web_Development_Knowledge/1-REST%20API.md)
